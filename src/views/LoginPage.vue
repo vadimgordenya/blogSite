@@ -14,6 +14,7 @@
           >
             <el-form-item label="Email" prop="email">
               <el-input
+                data-test="email"
                 type="email"
                 v-model="ruleForm.email"
                 autocomplete="off"
@@ -21,16 +22,22 @@
             </el-form-item>
             <el-form-item label="Password" prop="password">
               <el-input
+                data-test="password"
                 type="password"
                 v-model="ruleForm.password"
                 autocomplete="off"
               ></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')"
+              <el-button
+                data-test="submit"
+                type="primary"
+                @click="submitForm('ruleForm')"
                 >Submit</el-button
               >
-              <el-button @click="resetForm('ruleForm')">Reset</el-button>
+              <el-button data-test="reset" @click="resetForm('ruleForm')"
+                >Reset</el-button
+              >
             </el-form-item>
           </el-form>
         </div>
@@ -62,7 +69,13 @@ export default class LoginPage extends Vue {
     const rules = {
       email: [
         { required: true, message: "Please input Email", trigger: "blur" },
-        { validator: this.validateEmail, trigger: "blur" }
+        { validator: this.validateEmail, trigger: "blur" },
+        {
+          min: 3,
+          max: 50,
+          message: "Length should be 3 to 10",
+          trigger: "blur"
+        }
       ],
       password: [
         { required: true, message: "Please input password", trigger: "blur" },

@@ -18,7 +18,7 @@
             v-bind:class="{ '': !menuIsActive, isOpen: menuIsActive }"
           >
             <el-menu-item index="1">
-              <router-link to="/">
+              <router-link to="/" data-test="home">
                 {{ $t("menu.home") }}
               </router-link>
             </el-menu-item>
@@ -26,16 +26,22 @@
               <router-link to="/about">{{ $t("menu.info") }}</router-link>
             </el-menu-item>
             <el-menu-item index="3">
-              <router-link to="/about">{{
-                $t("menu.about")
-              }}</router-link></el-menu-item
-            >
+              <router-link to="/about" data-test="about">
+                {{ $t("menu.about") }}
+              </router-link>
+            </el-menu-item>
           </el-menu>
           <el-radio-group v-model="lang" :change="switchLang()" size="mini">
-            <el-radio-button label="ru">Ru</el-radio-button>
-            <el-radio-button label="en">En</el-radio-button>
+            <el-radio-button data-test="ru" label="ru">Ru</el-radio-button>
+            <el-radio-button data-test="en" label="en">En</el-radio-button>
           </el-radio-group>
-          <el-button class="logout-btn" type="info" size="mini" @click="logout">
+          <el-button
+            data-test="logout"
+            class="logout-btn"
+            type="info"
+            size="mini"
+            @click="logout"
+          >
             <i class="el-icon-toilet-paper"></i>
             <span class="text-block">{{ $t("buttons.button-logout") }}</span>
           </el-button>
@@ -63,8 +69,8 @@ export default class HeaderComponent extends Vue {
   }
 
   logout() {
-    localStorage.removeItem("currentUser");
-    this.$router.push({ name: "login" });
+    window.localStorage.removeItem("currentUser");
+    this.$router.push({ name: "Login" });
   }
 }
 </script>
