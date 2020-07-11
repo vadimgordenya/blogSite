@@ -1,18 +1,78 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <el-row type="flex" justify="center">
+      <el-col :span="12" class="articles-control">
+        <el-input :placeholder="$t('search')" v-model="searchValue"></el-input>
+        <el-tooltip
+          effect="dark"
+          :content="$t('tooltip')"
+          placement="top-start"
+        >
+          <el-button
+            type="primary"
+            :icon="viewMode ? 'el-icon-edit' : 'el-icon-star-off'"
+            circle
+            @click="changeViewMode"
+          ></el-button>
+        </el-tooltip>
+      </el-col>
+    </el-row>
+    <div v-if="articles" :class="viewMode ? '' : 'block-view'">
+      <ArticleView
+        v-for="article in articles"
+        :key="article.id"
+        :item="article"
+        :search="searchValue"
+        :viewMode="viewMode"
+      />
+    </div>
+    <div v-else>
+      {{ $t("empty-page") }}
+    </div>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+import ArticleView from "@/components/ArticleView.vue";
 
-export default {
-  name: "Home",
+const Articles = namespace("Articles");
+
+@Component({
   components: {
-    HelloWorld
+    ArticleView
   }
-};
+})
+export default class Home extends Vue {
+  @Articles.State articles: any;
+  searchValue: string = "";
+  viewMode: boolean = true;
+
+  changeViewMode() {
+    this.viewMode = !this.viewMode;
+  }
+}
 </script>
+
+<style lang="scss" scoped>
+.articles-control {
+  display: flex;
+  justify-content: center;
+}
+.el-input {
+  display: inline-block;
+  width: 250px;
+  margin: 0 5px 0 0;
+  @media (max-width: 768px) {
+    display: block;
+    width: 100%;
+    margin: 0 0 5px 0;
+  }
+}
+.block-view {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+</style>

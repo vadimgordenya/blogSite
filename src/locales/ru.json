@@ -1,0 +1,20 @@
+{
+  "empty-page": "Страница пуста",
+  "menu": {
+    "home": "Главаная",
+    "info": "Инфо",
+    "about": "О нас"
+  },
+  "buttons": {
+    "button-logout": "Выход"
+  },
+  "footer-text": "Freebie разработано By Kishore для Project365.Design",
+  "article": {
+    "destination-title": "Место",
+    "added-title": "Автор",
+    "view-more-button": "Подробнее",
+    "back-button": "Назад к главной"
+  },
+  "search": "Поиск",
+  "tooltip": "Изменить вид"
+}
